@@ -1,3 +1,9 @@
+/**
+ * TAREA 1: Realizar un programa donde el cliente envíe un número y el servidor calcule
+ * su número al cuadrado (por ejemplo: 2 -> 2^2 = 4):
+ * a. El servidor escribe por pantalla el resultado y finalizan la conexión cliente y servidor.
+ * b. El servidor devuelve el resultado al cliente, y el cliente lo escribe por pantalla.
+ */
 package es.mcg.cliente;
 
 import java.io.DataInputStream;
@@ -18,13 +24,17 @@ public class CuadradoCliente {
         Scanner sc = new Scanner(System.in);
         int numEntrada;
         try{
+            //El cliente conecta su IP de la PC al puerto del servidor
             socketCliente = new Socket(HOST, CuadradoServidor.PORT);
 
+            //El cliente recibe el mensaje, siendo el cliente que debe enviar el numero
+            // al servidor 
             inputStream = new DataInputStream(socketCliente.getInputStream());
             System.out.println(inputStream.readUTF());
             numEntrada = sc.nextInt();
             outputStream = new DataOutputStream(socketCliente.getOutputStream());
             outputStream.writeInt(numEntrada);
+            //Imprime el resultado por la pantalla
             System.out.println("Resultado: "+inputStream.readInt());
         }catch(UnknownHostException unknownHostException)
         {
