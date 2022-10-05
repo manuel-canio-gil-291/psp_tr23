@@ -1,3 +1,8 @@
+/**
+ * TAREA 2: Realizar un programa donde el cliente envíe dos números y un símbolo '+', '-', '*', '/'. 
+ * El servidor debe realizar la operación adecuada con ambos números, devolviendo el resultado, 
+ * y siendo el cliente quien pinte por pantalla el resultado.
+ */
 package es.mcg.cliente;
 
 import java.io.DataInputStream;
@@ -20,8 +25,11 @@ public class CalculadoraCliente {
         int num1Entrada, num2Entrada;
         char opEntrada;
         try {
+            //El cliente conecta su IP de la PC al puerto del servidor
             socketCliente = new Socket(HOST, CalculadoraServidor.PORT);
             
+            //El cliente recibe los mensajes, siendo el cliente que debe enviar los numeros
+            // y la operacion al servidor 
             inputStream = new DataInputStream(socketCliente.getInputStream());
             System.out.println(inputStream.readUTF());
             num1Entrada = sc.nextInt();
@@ -33,6 +41,7 @@ public class CalculadoraCliente {
             System.out.println(inputStream.readUTF());
             opEntrada = sc.next().charAt(0);
             outputStream.writeChar(opEntrada);
+            //Imprime el resultado por la pantalla
             System.out.println(num1Entrada+" "+opEntrada+" "+num2Entrada+" = "+inputStream.readInt());
         } catch (UnknownHostException hException) {
             hException.printStackTrace();

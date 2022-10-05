@@ -1,3 +1,8 @@
+/**
+ * TAREA 2: Realizar un programa donde el cliente envíe dos números y un símbolo '+', '-', '*', '/'. 
+ * El servidor debe realizar la operación adecuada con ambos números, devolviendo el resultado, 
+ * y siendo el cliente quien pinte por pantalla el resultado.
+ */
 package es.mcg.servidor;
 
 import java.io.DataInputStream;
@@ -17,8 +22,11 @@ public class CalculadoraServidor {
         int n1, n2, res;
         char op;
         try {
+            //El servidor inicia con el puerto indicado
             socketServidor = new ServerSocket(PORT);
             socketCliente = socketServidor.accept();
+            //El servidor envia los mensajes al cliente, siendo el cliente que debe enviar
+            // los numeros y la operacion al servidor
             outputStream = new DataOutputStream(socketCliente.getOutputStream());
             outputStream.writeUTF("Introduce el primer numero");
             inputStream = new DataInputStream(socketCliente.getInputStream());
@@ -27,7 +35,9 @@ public class CalculadoraServidor {
             n2 = inputStream.readInt();
             outputStream.writeUTF("Seleccione una opcion\n\t+ -> Sumar\n\t- -> Restar\n\t* -> Multiplicar\n\t/ -> Dividir");
             op = inputStream.readChar();
+            //Hacemos un switch para comparar el simbolo de la operacion
             switch(op)
+            //El servidor envia el resultado al cliente
             {
                 case '+': {
                     res = (n1+n2);
